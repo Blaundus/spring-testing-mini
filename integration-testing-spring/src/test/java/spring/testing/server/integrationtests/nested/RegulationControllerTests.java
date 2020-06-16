@@ -20,6 +20,9 @@ public class RegulationControllerTests{
 	@Autowired
 	ComplianceController controller;
 
+	@Value(value = "${monitoring.status}")
+	String monitoringStatus;
+
 	@Configuration
 	@Import(ComplianceControllerConfiguration.class)	
 	static class NestedConfiguration {
@@ -31,8 +34,6 @@ public class RegulationControllerTests{
 	}
 
 	
-	@Value(value = "${monitoring.status}")
-	String monitoringStatus;
 
 	@Test
 	public void whenSettingMonitoring_LogContentChange() {
