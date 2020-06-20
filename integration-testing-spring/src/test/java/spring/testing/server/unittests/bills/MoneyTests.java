@@ -1,6 +1,6 @@
 package spring.testing.server.unittests.bills;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 
@@ -8,18 +8,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import spring.testing.server.bills.Money;
-import spring.testing.server.exchange.CheeseExchange;
+import spring.testing.server.exchange.ProductExchange;
 import spring.testing.server.unittests.mocks.MockRateRepository;
-
 public class MoneyTests {
 
-  private CheeseExchange exchange;
+  private ProductExchange exchange;
   private MockRateRepository mockRepository;
 
   @BeforeEach
   public void setUp() throws Exception {
 	mockRepository = new MockRateRepository(); 
-    exchange=new CheeseExchange(mockRepository);
+    exchange=new ProductExchange(mockRepository);
     exchange.setBaseRate("ILS");
     exchange.setRate("JND", BigDecimal.valueOf(2));
   }

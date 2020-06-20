@@ -1,4 +1,4 @@
-package spring.testing.server.gateway;
+package spring.testing.server.controllers;
 
 import java.util.List;
 
@@ -12,22 +12,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import spring.testing.server.compliance.logging.Registrar;
-import spring.testing.server.exchange.CheeseExchange;
+import spring.testing.server.exchange.ProductExchange;
 import spring.testing.server.exchange.RateParser;
 import spring.testing.server.exchange.Rates;
 import spring.testing.server.persistence.jdbc.RateRepository;
 import spring.testing.server.rules.CompositeLineItemRule;
 
 @RestController()
-public class CheeseExchangeController {
+public class ProductExchangeController {
 
 	@Autowired CompositeLineItemRule ruleManager;
 	@Autowired RateParser rateLoader;
 	@Autowired RateRepository rateRepository;
- 	@Autowired CheeseExchange exchange;
+ 	@Autowired ProductExchange exchange;
 	@Autowired ExchangeStatus monitor;
 	@Autowired Registrar trafficRegulator;
-	private boolean isFirstTime;
+	private boolean isFirstTime = true;
 	
 	@GetMapping(value ="/rates/currency")
 	public ResponseEntity<String> getRateByCurrency(
@@ -51,7 +51,6 @@ public class CheeseExchangeController {
 	
 	@PostMapping(value = "/rates/addmany")
 	public void addRates(@RequestParam List<String> rates) {
-		boolean isFirstTime = true;
 		if (monitor.isInitialized()) {
 			isFirstTime = false;
 		}
@@ -94,5 +93,37 @@ public class CheeseExchangeController {
 	
 	public void Reset() {
 		this.monitor.stopMonitoring();
+		isFirstTime = true;
+	}
+
+	// e4
+	public String getCurrencies() {
+		StringBuilder result = new StringBuilder();
+		List<String> currencies = rateRepository.getAllCurrenciesButBase();
+		if (currencies == null )
+			return "No Rates Exist";
+		
+		currencies.forEach(currency -> {
+			if (currency != "EUR") {
+				result.append(currency);
+				result.append(",");
+			}
+		});
+		return result.toString();	
+	}
+	
+	// e6
+	@PostMapping(value = "/rates/updatebase")
+	public void updateBaseRate(@RequestBody String newRate) {
+		String nakedRate = removeQuotes(newRate);
+		
+		if (!isFirstTime) {
+			rateRepository.deleteAllRates();
+		}
+		rateLoader.setBaseRate(nakedRate);
+			
+	}
+	private String removeQuotes(String rate) {
+		return rate.substring(1, rate.length()-1);
 	}
 }

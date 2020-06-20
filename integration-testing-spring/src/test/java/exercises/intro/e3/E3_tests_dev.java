@@ -1,21 +1,18 @@
 package exercises.intro.e3;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.reset;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import spring.testing.server.compliance.ComplianceMonitor;
 import spring.testing.server.compliance.logging.Registrar;
-import spring.testing.server.gateway.ComplianceController;
+import spring.testing.server.controllers.ComplianceController;
 
 @SpringBootTest
 @ActiveProfiles("dev")

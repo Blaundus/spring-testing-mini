@@ -1,4 +1,4 @@
-package spring.testing.server.gateway;
+package spring.testing.server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +22,10 @@ public class ComplianceController {
 	@GetMapping(value = "rules/log")
 	public String getTrafficLog() {
 		if (ComplianceMonitor.instance().shouldMonitor()){
+			// e2 : add tempering check
+			if (trafficRegistrar.isTempered())
+				return "data was tempered";
+			// e2
 			return trafficRegistrar.getLog().getAllAsString();
 		}
 		else
