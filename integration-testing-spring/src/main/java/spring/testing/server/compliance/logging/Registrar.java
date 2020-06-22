@@ -9,6 +9,5 @@ public interface Registrar {
   void start();
   BillLog getLog();
   
-  // e2
   boolean isTempered();
 }
