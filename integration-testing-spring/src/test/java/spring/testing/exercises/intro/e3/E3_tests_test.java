@@ -1,4 +1,4 @@
-package exercises.intro.e3;
+package spring.testing.exercises.intro.e3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
