@@ -1,8 +1,8 @@
 package spring.testing.server.helpers;
 
-import spring.testing.server.controllers.ExchangeStatus;
+import spring.testing.server.exchange.Monitor;
 
-public class LoggingMonitor extends ExchangeStatus {
+public class LoggingMonitor extends Monitor {
 
 	
 	@Override

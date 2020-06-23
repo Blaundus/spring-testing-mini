@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import spring.testing.server.bills.LineItem;
 import spring.testing.server.bills.Money;
 import spring.testing.server.rules.CurrencyRule;
-
 public class FactorByCurrencyRuleTests {
   private CurrencyRule lineItemRule;
   

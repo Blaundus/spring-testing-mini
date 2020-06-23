@@ -1,8 +1,8 @@
 package spring.testing.server.helpers;
 
-import spring.testing.server.controllers.ExchangeStatus;
+import spring.testing.server.exchange.Monitor;
 
-public class FaultyStatus extends ExchangeStatus{
+public class FaultyMonitor extends Monitor{
 	@Override
 	public boolean isOk() {
 		return false;
