@@ -1,4 +1,4 @@
-package spring.testing.client.integrationtests;
+package spring.testing.exercises.rest.e6;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,7 +25,7 @@ import spring.testing.client.configuration.ClientConfiguration;
 
 @SpringBootTest
 @ContextConfiguration(classes= {ClientConfiguration.class})
-public class ClientTests {
+public class E6_Tests {
 	
 	@Autowired ClientApp	client;
 	@Autowired RestTemplate restTemplate;
@@ -43,21 +43,7 @@ public class ClientTests {
 		mockServer.verify();
 	}
 
-	@Test
-	public void get_ServerCalledCorrectly() {
-		mockServer
-				.expect(once(), requestTo("/rates/currency/?name=EUR"))
-				.andRespond(
-						withSuccess("EUR = 1.000000", MediaType.TEXT_PLAIN));
-		client.getRateByName("EUR");
-		
-	}
-
-	@Test
-	public void empty_whenServerCalledIncorrectly() {
-		mockServer
-				.expect(once(), requestTo("/rates/currency/?name=INC"))
-				.andRespond(withBadRequest());
-		assertEquals("",client.getRateByName("INC"));
+	@Test 
+	public void addRate_ThrowsRunTimeOnError() {
 	}
 }
