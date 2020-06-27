@@ -1,4 +1,4 @@
-package spring.testing.server.integrationtests.controllers;
+package spring.testing.exercises.rest.e5;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,7 +25,7 @@ import spring.testing.server.entities.Product;
 @ContextConfiguration(classes = { ProductControllerConfiguration.class, JPA_ControllerConfiguration.class })
 @SpringBootTest
 @AutoConfigureMockMvc
-public class JPA_ProductControllerTests {
+public class E5_Tests {
 
 	@Autowired
 	MockMvc mockMvc;
@@ -34,20 +34,11 @@ public class JPA_ProductControllerTests {
 	private EntityManager entityManager;
 
 	@Test
+	public void zeroRatesRetrieved_onCreation() throws Exception {
+	}
+
+	@Test
 	@Transactional
-	public void singleRateRetrieved_afterAdding() throws Exception {
-		Product product = new Product("Brie", "France");
-
-		entityManager.persist(product);
-		entityManager.flush();
-
-		assertEquals("{Brie from France}", getAllProducts());
+	public void twoRatesRetrieved_afterAddingTwo() throws Exception {
 	}
-
-	private String getAllProducts() throws Exception {
-		MvcResult result = mockMvc.perform(get("/products/all")).andExpect(status().isOk()).andReturn();
-
-		return result.getResponse().getContentAsString();
-	}
-
 }
